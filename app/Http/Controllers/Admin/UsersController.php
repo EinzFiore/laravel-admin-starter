@@ -20,14 +20,14 @@ class UsersController extends Controller
 
     public function getData()
     {
-        $data = User::with('roles')->get();
+        $data = User::with('roles')->where('role', '>', 1)->get();
         return \DataTables::of($data)
             ->editColumn('created_at', function ($request) {
                 return $request->created_at->format('Y-m-d H:i:s');
             })
             ->addColumn('Actions', function ($data) {
-                return '<button type="button" class="btn btn-primary btn-sm" id="edit" data-id="' . $data->id . '">Edit</button>
-                    <button type="button" data-id="' . $data->id . '" data-toggle="modal" data-target="#DeleteArticleModal" class="btn btn-danger btn-sm" id="delete">Delete</button>';
+                return '<button type="button" class="btn btn-primary btn-sm" id="editUser" data-id="' . $data->id . '">Edit</button>
+                    <a href="/admin/users/delete/' . $data->id . '" class="btn btn-danger btn-md" id="deleteUser">Delete</a>';
             })
             ->rawColumns(['Actions'])
             ->make(true);
@@ -82,21 +82,32 @@ class UsersController extends Controller
 
     public function show($id)
     {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
+        $user = User::with('roles')->findOrFail($id);
+        return response()->json($user);
     }
 
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'username' => 'required',
+            'email' => 'required',
+            'role' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()->all()]);
+        }
+
+        $user = User::findOrFail($id);
+        $user->update($request->all());
+        return response()->json(['success' => 'Successfully update User']);
     }
 
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+        return back()->with('success', 'Users deleted successfully');
     }
 }

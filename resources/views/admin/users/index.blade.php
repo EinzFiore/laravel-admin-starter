@@ -50,7 +50,7 @@
 
 @push('script.custom')
 <script type="text/javascript">
-  $(document).ready(function() {
+  $(document).ready(function() {  
         // init datatable.
         var dataTable = $('.server').DataTable({
             processing: true,
@@ -72,7 +72,7 @@
         });
 
         // Create users Ajax request.
-    $('#addNewUser').click(function(e) {
+          $('#addNewUser').click(function(e) {
             e.preventDefault();
             $.ajaxSetup({
                 headers: {
@@ -111,6 +111,7 @@
                 }
             });
         });
+
         // Create role Ajax request.
     $('#addNewRole').click(function(e) {
             e.preventDefault();
@@ -146,6 +147,81 @@
             });
         });
     });
-    
+
+    $('body').on('click', '#editUser', function () {
+      var id = $(this).data('id');
+      $.get(`/admin/users/show/${id}`, function (data) {
+          $('#editModalUser').modal('show');
+          $('#idUsers').val(data.id);
+          $('#editName').val(data.name);
+          $('#editEmail').val(data.email);
+          $('#editUsername').val(data.username);
+          $('#editRole').val(data.role);
+      })
+    });
+
+    // Edit users Ajax request.
+    $('#updateModalUsers').click(function(e) {
+      const idUsers = $('#idUsers').val();
+      e.preventDefault();
+      $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      });
+      $.ajax({
+          url: `/admin/users/update/${idUsers}`,
+          method: 'post',
+          data: {
+              name: $('#editName').val(),
+              username: $('#editUsername').val(),
+              email: $('#editEmail').val(),
+              role: $('#editRole').val(),
+          },
+          success: function(result) {
+              if(result.errors) {
+                toastr.error(result.errors);
+                $('.alert-danger').html('');
+                $.each(result.errors, function(key, value) {
+                    toastr.errors(value);
+                      $('.alert-danger').show();
+                      $('.alert-danger').append('<strong><li>'+value+'</li></strong>');
+                  });
+              } else {
+                  $('.alert-danger').hide();
+                  $('.alert-success').show();
+                  toastr.success(result.success);
+                  $('.datatable').DataTable().ajax.reload();
+                  setInterval(function(res){ 
+                      $('#addUser').modal('hide');
+                      location.reload();
+                  }, 1000);
+              }
+          }
+      });
+  });
+
+  // delete users
+  $('body').on('click', '#deleteUser', function (e) {
+    e.preventDefault();
+    const url = $(this).attr('href');
+    Swal.fire({
+    title: 'Are you sure?',
+    icon: 'warning',
+    text: 'This record and it`s details will be permanantly deleted!',
+    showDenyButton: true,
+    confirmButtonText: `Delete`,
+    denyButtonText: `Cancel`,
+  }).then((result) => {
+    if (result.isConfirmed) {
+       Swal.fire('Success delete users', '', 'success')
+        setInterval(function(){ 
+          window.location.href = url;
+        }, 1000);
+    } else if (result.isDenied) {
+      Swal.fire('Changes are not saved', '', 'info')
+    }
+  })
+});
 </script>
 @endpush

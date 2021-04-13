@@ -29,8 +29,11 @@ Route::get('admin/home', 'HomeController@handleAdmin')->name('admin.route')->mid
 Route::prefix('admin')->group(function () {
     Route::prefix('users')->group(function () {
         Route::get('list', 'Admin\UsersController@index')->name('admin.users.list');
+        Route::get('show/{id}', 'Admin\UsersController@show')->name('admin.users.show');
         Route::get('get', 'Admin\UsersController@getData')->name('admin.users.get');
         Route::post('add', 'Admin\UsersController@store')->name('admin.users.add');
+        Route::post('update/{id}', 'Admin\UsersController@update')->name('admin.users.update');
+        Route::get('delete/{id}', 'Admin\UsersController@destroy');
     });
     Route::post('add/role', 'Admin\UsersController@addRole')->name('admin.add.role');
 });

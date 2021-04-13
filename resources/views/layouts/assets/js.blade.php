@@ -23,7 +23,7 @@
 <script src="<?= url('assets/js/owlcarousel/owl.carousel.js') ?>"></script>
 <script src="<?= url('assets/js/dashboard/dashboard_2.js') ?>"></script>
 <script src="<?= url('assets/js/tooltip-init.js') ?>"></script>
-<script src="<?= url('assets/js/sweet-alert/sweetalert.min.js') ?>"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="<?= url('assets/js/datatable/datatables/jquery.dataTables.min.js') ?>"></script>
 <script src="<?= url('assets/js/datatable/datatables/datatable.custom.js') ?>"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
