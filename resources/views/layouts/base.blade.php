@@ -22,7 +22,7 @@
         @include('layouts.pages.body')
         {{-- Page Body end --}}
         <!-- footer start-->
-        @include('layouts.footer.index')
+        {{-- @include('layouts.footer.index') --}}
       </div>
     </div>
     {{-- js start --}}

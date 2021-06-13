@@ -27,6 +27,19 @@
                   </div>
                 </div>
                 <div class="form-group">
+                  <label class="col-form-label pt-0">Username</label>
+                  <div class="form-row">
+                    <div class="col-12">
+                      <input class="form-control @error('username') is-invalid @enderror" type="text" name="username" value="{{ old('username') }}" required="">
+                      @error('name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                      @enderror
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
                   <label class="col-form-label">Email Address</label>
                   <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" value="{{ old('email') }}" required="" placeholder="Test@gmail.com">
                   @error('email')
