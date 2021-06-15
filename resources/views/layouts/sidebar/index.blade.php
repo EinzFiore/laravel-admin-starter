@@ -18,7 +18,7 @@
             </div>
           </li>
           <li class="sidebar-list">
-            <a class="sidebar-link" href="#"><i data-feather="home"></i><span class="lan-3">Dashboard</span></a>
+            <router-link to="dashboard" class="sidebar-link"><i data-feather="home"></i><span class="lan-3">Dashboard</span></router-link>
           </li>
           @can('manage-user')
           <li class="sidebar-main-title">
@@ -28,7 +28,7 @@
             </div>
           </li>
             <li class="sidebar-list">
-              <a class="sidebar-link active" href="{{route('admin.users.list')}}"><i data-feather="users"></i><span>Users</span></a>
+              <router-link to="user-list" class="sidebar-link"><i data-feather="users"></i><span>Users</span></router-link>
           </li>
           @endcan
       </div>

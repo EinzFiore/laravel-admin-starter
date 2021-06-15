@@ -11,6 +11,7 @@
       </div>
     </div>
     <!-- Container-fluid starts-->
+    <router-view></router-view>
     @yield('content')
     <!-- Container-fluid Ends-->
   </div>

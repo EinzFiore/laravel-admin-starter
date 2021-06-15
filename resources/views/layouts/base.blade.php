@@ -9,7 +9,7 @@
     <div class="tap-top"><i data-feather="chevrons-up"></i></div>
     <!-- tap on tap ends-->
     <!-- page-wrapper Start-->
-    <div class="page-wrapper compact-wrapper" id="pageWrapper">
+    <div class="page-wrapper compact-wrapper" id="app">
       <!-- Page Header Start-->
       @include('layouts.header.index')
       <!-- Page Header Ends-->
@@ -20,6 +20,7 @@
         <!-- Page Sidebar Ends-->
         {{-- Page Body start --}}
         @include('layouts.pages.body')
+        <vue-progress-bar></vue-progress-bar>
         {{-- Page Body end --}}
         <!-- footer start-->
         {{-- @include('layouts.footer.index') --}}
